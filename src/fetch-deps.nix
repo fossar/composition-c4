@@ -11,7 +11,7 @@
 
 let
   fetchComposerPackage = pkg:
-    assert lib.assertMsg (pkg ? source && pkg.source.type == "git") "Package “${pkg.name}” does not have source of type git“”.";
+    assert lib.assertMsg (pkg ? source && pkg.source.type == "git") "Package “${pkg.name}” does not have source of type “git”.";
     builtins.fetchGit {
       inherit (pkg.source) url;
       rev = pkg.source.reference;
