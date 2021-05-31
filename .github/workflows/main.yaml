@@ -14,10 +14,8 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v13
         with:
-          install_url: https://nixos-nix-install-tests.cachix.org/serve/x5hb0mxd5brv28fs3ymaxsqd6by9dwsw/install
-          install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
           extra_nix_config: |
             experimental-features = nix-command flakes
 
       - name: Run integration tests
-        run: ./run-tests.sh
+        run: nix-shell -I nixpkgs=channel:nixos-unstable -p nixUnstable --run './run-tests.sh'
