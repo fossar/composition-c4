@@ -9,9 +9,7 @@ composerSetupPreConfigureHook() {
         die "composerSetupPreConfigureHook: Package passed to composerDeps is likely not a Composer repository - it lacks packages.json file."
     fi
 
-    local workDir="${composerRoot:+$composerRoot/}"
-
-    if [[ -n $composerDeps ]]; then
+    if [[ -n $composerRoot ]]; then
         pushd "$composerRoot"
     fi
 
@@ -24,7 +22,7 @@ composerSetupPreConfigureHook() {
     # Synchronize the lock file with the config changes.
     composer update --lock
 
-    if [[ -n $composerDeps ]]; then
+    if [[ -n $composerRoot ]]; then
         popd
     fi
 
