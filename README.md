@@ -119,7 +119,9 @@ We then create a [Composer repository](https://getcomposer.org/doc/05-repositori
 
 There is Sander’s [composer2nix] but that follows the generator approach, which is not always convenient.
 
-We took an inspiration from Nicolas’s [napalm](https://github.com/nmattia/napalm), which is similar tool for npm (JavaScript). The hook design was based on `rustPlatform.cargoSetupHook` and `rustPlatform.fetchCargoTarball` from Nixpkgs.
+stephank’s [composer-plugin-nixify](https://github.com/stephank/composer-plugin-nixify) also opts for the generator route but it hooks into Composer so the generated file is always in sync with `composer.lock` (even for developers not using Nix).
+
+We decided to use lockfile-based approach inspired by Nicolas’s [napalm](https://github.com/nmattia/napalm), a similar tool for npm (JavaScript). The hook design was based on `rustPlatform.cargoSetupHook` and `rustPlatform.fetchCargoTarball` from Nixpkgs.
 
 ## License
 
