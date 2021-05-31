@@ -33,18 +33,20 @@ let
             pkg.name
             {
               "${pkg.version}" =
-                lib.recursiveUpdate
-                  pkg
-                  {
-                    dist = {
-                      type = "path";
-                      url = "${placeholder "out"}/repo/${pkg.name}";
-                    };
-                    source = {
-                      type = "path";
-                      url = "${placeholder "out"}/repo/${pkg.name}";
-                    };
+                pkg // {
+                  dist = {
+                    type = "path";
+                    url = "${placeholder "out"}/repo/${pkg.name}";
+                    reference =
+                      assert lib.assertMsg (pkg.source.reference == pkg.dist.reference) "Package “${pkg.name}” has a mismatch between “reference” keys of “dist” and “source” keys.";
+                      pkg.dist.reference;
                   };
+                  source = {
+                    type = "path";
+                    url = "${placeholder "out"}/repo/${pkg.name}";
+                    reference = pkg.source.reference;
+                  };
+                };
             };
         composerPkgs = builtins.listToAttrs (builtins.map makePackage packagesToInstall);
       in
