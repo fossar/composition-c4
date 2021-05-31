@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   installCheckPhase = ''
     runHook preInstallCheck
 
-    php bin/grav --version
+    php bin/grav --version | grep "${version}"
 
     runHook postInstallCheck
   '';
