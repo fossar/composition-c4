@@ -59,6 +59,6 @@ runCommand "repo" {
 } ''
   mkdir -p "$out/repo"
   cd "$out"
-  ${lib.concatMapStringsSep "\n" ({name, source}: ''mkdir -p "$(dirname "repo/${name}")" && cp -r "${source}" "repo/${name}"'') sources}
+  ${lib.concatMapStringsSep "\n" ({name, source}: ''mkdir -p "$(dirname "repo/${name}")" && ln -s "${source}" "repo/${name}"'') sources}
   cp "$repoManifestPath" packages.json
 ''
