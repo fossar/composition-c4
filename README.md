@@ -127,5 +127,5 @@ We decided to use lockfile-based approach inspired by Nicolas’s [napalm](https
 
 The contents of this project is distributed under the [MIT license](LICENSE.md).
 
-[nixcon-language-support-overview]: https://www.youtube.com/watch?v=nXDumHZI2zg
+[nixcon-language-support-overview]: https://www.nmattia.com/posts/2019-11-12-language-support-overview-nixcon.html
 [composer2nix]: https://github.com/svanderburg/composer2nix
