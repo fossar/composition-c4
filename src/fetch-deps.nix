@@ -5,9 +5,12 @@
 }:
 
 {
-  src,
+  src ? null,
+  lockFile ? null,
   includeDev ? true,
 }:
+
+assert lib.assertMsg ((src == null) != (lockFile == null)) "Either “src” or “lockFile” attribute needs to be provided.";
 
 let
   fetchComposerPackage = pkg:
@@ -18,9 +21,9 @@ let
       allRefs = true;
     };
 
-  lockFile = lib.importJSON "${src}/composer.lock";
+  lock = lib.importJSON (if lockFile != null then lockFile else "${src}/composer.lock");
 
-  packagesToInstall = lockFile.packages ++ lib.optionals includeDev lockFile.packages-dev;
+  packagesToInstall = lock.packages ++ lib.optionals includeDev lock.packages-dev;
 
   sources = builtins.map (pkg: { inherit (pkg) name; source = fetchComposerPackage pkg; }) packagesToInstall;
 

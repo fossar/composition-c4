@@ -80,9 +80,9 @@ then, add the overlay to your Nixpkgs instance. `outputs`, you will be able to a
 
 ### `c4.fetchComposerDeps`
 
-This is a function that, for given source, returns a derivation with a Composer repository containing the packages listed by the Composer lock file in the source directory.
+This is a function that, for given source, returns a derivation with a Composer repository containing the packages listed by the Composer lock file in the source directory. It takes the following arguments:
 
-- `src` – the source directory/derivation. Needs to contain `composer.lock`.
+- Either `lockFile` containing an explicit path to `composer.lock` file, or `src`, which is the source directory/derivation containing the file.
 - `includeDev` – optional boolean variable controlling whether developer dependencies should be installed. Defaults to `true`.
 
 ### `c4.composerSetupHook`
