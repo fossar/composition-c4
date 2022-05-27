@@ -11,7 +11,9 @@
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
-        overlays = [ c4.overlay ];
+        overlays = [
+          c4.overlays.default
+        ];
       };
     in
     {
