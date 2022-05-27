@@ -25,7 +25,7 @@ let
 
   packagesToInstall = lock.packages ++ lib.optionals includeDev lock.packages-dev;
 
-  sources = builtins.map (pkg: { inherit (pkg) name; source = fetchComposerPackage pkg; }) packagesToInstall;
+  sources = builtins.map (pkg: { inherit (pkg) name version; source = fetchComposerPackage pkg; }) packagesToInstall;
 
   repoManifest = {
     packages =
@@ -39,7 +39,7 @@ let
                 pkg // {
                   dist = {
                     type = "path";
-                    url = "${placeholder "out"}/repo/${pkg.name}";
+                    url = "${placeholder "out"}/repo/${pkg.name}/${pkg.version}";
                     reference =
                       assert lib.assertMsg (pkg.source.reference == pkg.dist.reference) "Package “${pkg.name}” has a mismatch between “reference” keys of “dist” and “source” keys.";
                       pkg.dist.reference;
@@ -64,6 +64,6 @@ runCommand "repo" {
 } ''
   mkdir -p "$out/repo"
   cd "$out"
-  ${lib.concatMapStringsSep "\n" ({name, source}: ''mkdir -p "$(dirname "repo/${name}")" && ln -s "${source}" "repo/${name}"'') sources}
+  ${lib.concatMapStringsSep "\n" ({name, version, source}: ''mkdir -p "repo/${name}" && ln -s "${source}" "repo/${name}/${version}"'') sources}
   cp "$repoManifestPath" packages.json
 ''
