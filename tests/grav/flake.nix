@@ -1,10 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # Cannot use relative paths for now,
-    # will need to hack around it using a flake registry.
-    # https://github.com/NixOS/nix/issues/3978
-    # c4.url = "../..";
+    c4.url = "path:../..";
   };
 
   outputs = { self, nixpkgs, c4, ... }:
