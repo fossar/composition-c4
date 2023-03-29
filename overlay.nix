@@ -7,7 +7,7 @@ prev:
       prev.makeSetupHook
         {
           name = "composer-setup-hook.sh";
-          deps = [
+          propagatedBuildInputs = [
             prev.dieHook
           ];
         }
