@@ -101,9 +101,11 @@ It is controlled by the following environment variables (pass them to the deriva
 ## What are the limitations?
 
 - It requires `composer.lock` to exist.
-- It only supports downloading packages from Git.
-- Since it relies on Nix’s [IFD](https://nixos.wiki/wiki/Import_From_Derivation) mechanism in practical use cases (the lock files are loaded from derivation), it inherits all problems of IFD. Notably, it cannot be used in Nixpkgs.
-- It might be somewhat slower than generated Nix files (e.g. [composer2nix]).
+- It currently only supports downloading packages from Git.
+- When the lockfile comes from a source derivation rather then a local repository, Nix’s [import from derivation](https://nixos.wiki/wiki/Import_From_Derivation) mechanism will be used, inheriting all problems of IFD. Notably, it cannot be used in Nixpkgs.
+- We download the sources at evaluation time so it will block evaluation, this is especially painful since Nix currently does not support parallel evaluation.
+- Nix’s fetchers will fetch the full Git ref, which will take a long time for heavy repos like https://github.com/phpstan/phpstan.
+- It might be somewhat slower than generated Nix files (e.g. [composer2nix]) since the Nix values need to be constructed from scratch every time.
 
 For more information look at Nicolas’s _[An overview of language support in Nix][nixcon-language-support-overview]_ presentation from NixCon 2019.
 
