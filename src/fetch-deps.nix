@@ -7,7 +7,6 @@
 {
   src ? null,
   lockFile ? null,
-  includeDev ? true,
 }:
 
 assert lib.assertMsg ((src == null) != (lockFile == null)) "Either “src” or “lockFile” attribute needs to be provided.";
@@ -23,7 +22,8 @@ let
 
   lock = lib.importJSON (if lockFile != null then lockFile else "${src}/composer.lock");
 
-  packagesToInstall = lock.packages ++ lib.optionals includeDev lock.packages-dev;
+  # We always need to fetch dev dependencies so that `composer update --lock` can update the config.
+  packagesToInstall = lock.packages ++ lock.packages-dev;
 
   sources = builtins.map (pkg: { inherit (pkg) name version; source = fetchComposerPackage pkg; }) packagesToInstall;
 

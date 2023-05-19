@@ -20,7 +20,7 @@ composerSetupPreConfigureHook() {
     composer config repo.c4 '{"type": "composer", "url": "file://'"$composerDeps"'"}'
 
     # Synchronize the lock file with the config changes.
-    composer --no-ansi update --lock
+    composer --no-ansi update --lock --no-install
 
     if [[ -n $composerRoot ]]; then
         popd
