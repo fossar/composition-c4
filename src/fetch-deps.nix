@@ -42,19 +42,17 @@ let
                 # and Composer appears to use them when regenerating the lockfile.
                 # If we just used the minimal info, stuff like `autoloading` or `bin` programs would be broken.
                 #
+                # We cannot use `source` since Composer does not support path sources:
+                #     "PathDownloader" is a dist type downloader and can not be used to download source
+                #
                 # [1]: https://getcomposer.org/doc/05-repositories.md#packages>
-                pkg // {
+                builtins.removeAttrs pkg ["source"] // {
                   dist = {
                     type = "path";
                     url = "${placeholder "out"}/repo/${pkg.name}/${pkg.version}";
                     reference =
                       assert lib.assertMsg (pkg.source.reference == pkg.dist.reference) "Package “${pkg.name}” has a mismatch between “reference” keys of “dist” and “source” keys.";
                       pkg.dist.reference;
-                  };
-                  source = {
-                    type = "path";
-                    url = "${placeholder "out"}/repo/${pkg.name}";
-                    reference = pkg.source.reference;
                   };
                 };
             };
