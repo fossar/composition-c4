@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    composer install
+    composer --no-ansi install
     cp -r . $out
 
     runHook postInstall
