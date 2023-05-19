@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    c4.url = "path:../..";
+    c4.url = "path:../";
   };
 
   outputs = { self, nixpkgs, c4, ... }:
@@ -14,6 +14,6 @@
       };
     in
     {
-      packages.x86_64-linux.grav = pkgs.callPackage ./grav.nix { };
+      packages.x86_64-linux.grav = pkgs.callPackage ./grav { };
     };
 }
