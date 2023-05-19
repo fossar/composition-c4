@@ -15,5 +15,6 @@
     in
     {
       packages.x86_64-linux.grav = pkgs.callPackage ./grav { };
+      packages.x86_64-linux.non-head-rev = pkgs.callPackage ./non-head-rev { };
     };
 }
