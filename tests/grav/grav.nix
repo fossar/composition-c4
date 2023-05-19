@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "grav";
-  version = "1.7.15";
+  version = "1.7.41.1";
 
   src = fetchFromGitHub {
     owner = "getgrav";
     repo = "grav";
     rev = version;
-    sha256 = "4PUs+6RFQwNmCeEkyZnW6HAgiRtP22RtkhiYetsrk7Q=";
+    hash = "sha256-g3H5By78yDFcTaeLbQ3dYazamRpcT5eBUEGnEjDURE8=";
   };
 
   composerDeps = c4.fetchComposerDeps {
