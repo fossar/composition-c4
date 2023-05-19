@@ -36,6 +36,13 @@ let
             pkg.name
             {
               "${pkg.version}" =
+                # While Composer repositories only really require `name`, `version` and `source`/`dist` fields,
+                # we will use the original contents of the package’s entry from `composer.lock`, modifying just the sources.
+                # Package entries in Composer repositories correspond to `composer.json` files [1]
+                # and Composer appears to use them when regenerating the lockfile.
+                # If we just used the minimal info, stuff like `autoloading` or `bin` programs would be broken.
+                #
+                # [1]: https://getcomposer.org/doc/05-repositories.md#packages>
                 pkg // {
                   dist = {
                     type = "path";
