@@ -14,5 +14,6 @@ prev:
         ./src/composer-setup-hook.sh;
 
     fetchComposerDeps = prev.callPackage ./src/fetch-deps.nix { };
+    fetchComposerDepsImpure = prev.callPackage ./src/fetch-deps-impure.nix { };
   };
 }

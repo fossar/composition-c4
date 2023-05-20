@@ -84,6 +84,14 @@ This is a function that, for given source, returns a derivation with a Composer 
 
 - Either `lockFile` containing an explicit path to `composer.lock` file, or `src`, which is the source directory/derivation containing the file.
 
+### `c4.fetchComposerDepsImpure`
+
+This function has the same API as [`c4.fetchComposerDeps`]]#c4fetchcomposerdeps) but it fetches the dependencies at build time. There are, however, significant downsides:
+
+- It requires [enabling an experimental `impure-derivations`](https://nixos.org/manual/nix/stable/contributing/experimental-features.html#impure-derivations) feature [**in the daemon**](https://github.com/NixOS/nix/issues/6478)
+- It can only be used by other impure derivations.
+- The dependencies will be re-fetched with every build.
+
 ### `c4.composerSetupHook`
 
 This is a [setup hook](https://nixos.org/manual/nixpkgs/stable/#ssec-setup-hooks). By adding it to `nativeBuildInputs` of a Nixpkgs derivation, the following hooks will be automatically enabled.
@@ -102,9 +110,11 @@ It is controlled by the following environment variables (pass them to the deriva
 - It requires `composer.lock` to exist.
 - It currently only supports downloading packages from Git.
 - When the lockfile comes from a source derivation rather then a local repository, Nix’s [import from derivation](https://nixos.wiki/wiki/Import_From_Derivation) mechanism will be used, inheriting all problems of IFD. Notably, it cannot be used in Nixpkgs.
-- We download the sources at evaluation time so it will block evaluation, this is especially painful since Nix currently does not support parallel evaluation.
-- Nix’s fetchers will fetch the full Git ref, which will take a long time for heavy repos like https://github.com/phpstan/phpstan.
+- We download the sources at evaluation time so it will block evaluation, this is especially painful since Nix currently does not support parallel evaluation. 👋
+- Nix’s fetchers will fetch the full Git ref, which will take a long time for heavy repos like https://github.com/phpstan/phpstan. 👋
 - It might be somewhat slower than generated Nix files (e.g. [composer2nix]) since the Nix values need to be constructed from scratch every time.
+
+👋 You can use the [`c4.fetchComposerDepsImpure`](#c4fetchcomposerdepsimpure) to move the work to build time and more efficient fetching but it has [other downsides](#c4fetchcomposerdepsimpure).
 
 For more information look at Nicolas’s _[An overview of language support in Nix][nixcon-language-support-overview]_ presentation from NixCon 2019.
 

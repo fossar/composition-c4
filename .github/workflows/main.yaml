@@ -13,6 +13,13 @@ jobs:
 
       - name: Install Nix
         uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: |
+            # `flakes` and `nix-command` for convenience
+            # `impure-derivations` needed for testing `fetchComposerDepsImpure`
+            # and it is not sufficient to enable with CLI flag: https://github.com/NixOS/nix/issues/6478
+            # `ca-derivations` required by `impure-derivations`
+            experimental-features = flakes nix-command ca-derivations impure-derivations
 
       - name: Run integration tests
         run: ./run-tests.sh
