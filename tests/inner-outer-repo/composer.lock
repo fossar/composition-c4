@@ -1,0 +1,33 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "13f69a3281f4672868fcb8d3d5807bf3",
+    "packages": [
+        {
+            "name": "inner/repo",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "a/b",
+                "reference": "2a9bd6acb725e416b41393269f18c60ebb12fa6e"
+            },
+            "type": "library",
+            "homepage": "https://example.com/",
+            "transport-options": {
+                "relative": true
+            }
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": true,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}

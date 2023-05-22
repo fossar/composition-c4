@@ -1,0 +1,15 @@
+{
+    "name": "outer/repo",
+    "homepage": "https://example.com/",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "inner/repo": "*"
+    },
+    "repositories": {
+        "inner": {
+            "type": "path",
+            "url": "a/b"
+        }
+    }
+}
