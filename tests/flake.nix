@@ -17,5 +17,6 @@
       packages.x86_64-linux.composer = pkgs.callPackage ./composer { };
       packages.x86_64-linux.grav = pkgs.callPackage ./grav { };
       packages.x86_64-linux.non-head-rev = pkgs.callPackage ./non-head-rev { };
+      packages.x86_64-linux.inner-outer-repo = pkgs.callPackage ./inner-outer-repo { };
     };
 }

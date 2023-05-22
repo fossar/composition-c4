@@ -1,0 +1,6 @@
+{
+    "name": "inner/repo",
+    "homepage": "https://example.com/",
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
